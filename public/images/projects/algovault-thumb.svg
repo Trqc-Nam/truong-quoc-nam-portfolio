@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <rect width="800" height="450" fill="#0F172A"/>
+  <rect x="60" y="50" width="680" height="350" rx="12" fill="#1E293B" stroke="#334155" stroke-width="2"/>
+  <text x="100" y="110" font-family="'Courier New', monospace" font-size="20" fill="#38BDF8">&gt; algo_vault --benchmark</text>
+  <text x="100" y="150" font-family="'Courier New', monospace" font-size="16" fill="#94A3B8">[+] Segment Tree initialized: N=10^6, Q=10^5</text>
+  <text x="100" y="180" font-family="'Courier New', monospace" font-size="16" fill="#4ADE80">[SUCCESS] Range Query: O(log N) ~ 4.2ms</text>
+  <text x="100" y="210" font-family="'Courier New', monospace" font-size="16" fill="#94A3B8">[+] Disjoint Set Union (Path Compression):</text>
+  <text x="100" y="240" font-family="'Courier New', monospace" font-size="16" fill="#4ADE80">[SUCCESS] Ackermann alpha(N) verified</text>
+  <text x="400" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF" text-anchor="middle">AlgoVault: Competitive Programming</text>
+  <text x="400" y="370" font-family="system-ui, -apple-system, sans-serif" font-size="15" fill="#94A3B8" text-anchor="middle">C++20 • STL • ICPC Standard Algorithms</text>
+</svg>

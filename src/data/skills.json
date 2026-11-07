@@ -1,0 +1,172 @@
+[
+  {
+    "id": "cpp",
+    "name": "C++",
+    "category": "programming-languages",
+    "description": {
+      "vi": "Ngôn ngữ chủ đạo trong học thuật và lập trình thi đấu (STL, tối ưu thuật toán, quản lý bộ nhớ).",
+      "en": "Primary language for competitive programming and academic coursework (STL, algorithmic optimization, memory management)."
+    },
+    "evidenceProjectIds": ["algo-vault-cp"]
+  },
+  {
+    "id": "python",
+    "name": "Python",
+    "category": "programming-languages",
+    "description": {
+      "vi": "Công cụ chính cho các thực nghiệm Khoa học Dữ liệu, Machine Learning và xử lý ảnh.",
+      "en": "Core language for Data Science prototyping, Machine Learning pipelines, and computer vision experimentation."
+    },
+    "evidenceProjectIds": ["cv-edge-feature-extractor", "ml-tabular-benchmark"]
+  },
+  {
+    "id": "typescript",
+    "name": "TypeScript / JavaScript",
+    "category": "programming-languages",
+    "description": {
+      "vi": "Phát triển các ứng dụng web tĩnh và giao diện tương tác với kiểm tra kiểu tĩnh nghiêm ngặt.",
+      "en": "Modern frontend development with strict type checking and clean modular architecture."
+    },
+    "evidenceProjectIds": ["academic-portfolio-astro"]
+  },
+  {
+    "id": "pytorch",
+    "name": "PyTorch",
+    "category": "frameworks-libraries",
+    "description": {
+      "vi": "Xây dựng và huấn luyện các mô hình mạng nơ-ron tích chập (CNN) và phân lớp học sâu cơ bản.",
+      "en": "Building and training neural network architectures, CNN models, and tensor operations."
+    },
+    "evidenceProjectIds": ["cv-edge-feature-extractor"]
+  },
+  {
+    "id": "opencv",
+    "name": "OpenCV",
+    "category": "frameworks-libraries",
+    "description": {
+      "vi": "Xử lý tiền kỳ hình ảnh, biến đổi không gian màu, phát hiện cạnh và lọc nhiễu số.",
+      "en": "Image preprocessing, color space conversions, edge detection, and digital filtering."
+    },
+    "evidenceProjectIds": ["cv-edge-feature-extractor"]
+  },
+  {
+    "id": "numpy-pandas",
+    "name": "NumPy & Pandas",
+    "category": "frameworks-libraries",
+    "description": {
+      "vi": "Thao tác mảng nhiều chiều và tiền xử lý dữ liệu dạng bảng phục vụ mô hình học máy.",
+      "en": "Multidimensional array manipulation, vectorization, and tabular dataset preprocessing."
+    },
+    "evidenceProjectIds": ["ml-tabular-benchmark"]
+  },
+  {
+    "id": "deep-learning-fundamentals",
+    "name": "Deep Learning Fundamentals",
+    "category": "ai-ml",
+    "description": {
+      "vi": "Mạng nơ-ron nhân tạo (MLP), hàm mất mát, tối ưu hóa lan truyền ngược (Backpropagation, Adam).",
+      "en": "Neural network architectures, loss function formulation, backpropagation, and gradient descent optimization."
+    },
+    "evidenceProjectIds": ["cv-edge-feature-extractor"]
+  },
+  {
+    "id": "model-evaluation",
+    "name": "Model Evaluation & Metrics",
+    "category": "ai-ml",
+    "description": {
+      "vi": "Đánh giá định lượng mô hình qua Confusion Matrix, Precision, Recall, F1-Score, Cross-Validation.",
+      "en": "Rigorous quantitative model evaluation via Confusion Matrix, Precision, Recall, F1-Score, and K-Fold CV."
+    },
+    "evidenceProjectIds": ["ml-tabular-benchmark"]
+  },
+  {
+    "id": "image-preprocessing",
+    "name": "Image Preprocessing & Augmentation",
+    "category": "computer-vision",
+    "description": {
+      "vi": "Chuẩn hóa cường độ sáng, cân bằng biểu đồ sắc độ (Histogram Equalization) và tăng cường dữ liệu ảnh.",
+      "en": "Intensity normalization, histogram equalization, morphological transformations, and spatial augmentations."
+    },
+    "evidenceProjectIds": ["cv-edge-feature-extractor"]
+  },
+  {
+    "id": "feature-extraction",
+    "name": "Feature Extraction & Edge Detection",
+    "category": "computer-vision",
+    "description": {
+      "vi": "Kỹ thuật tách biên Sobel, Canny, trích xuất đặc trưng hình học cục bộ.",
+      "en": "Sobel, Laplacian, Canny edge detection, and local feature descriptors."
+    },
+    "evidenceProjectIds": ["cv-edge-feature-extractor"]
+  },
+  {
+    "id": "dsa",
+    "name": "Data Structures & Algorithms",
+    "category": "software-development",
+    "description": {
+      "vi": "Nắm vững cây nhị phân, đồ thị (BFS, DFS, Dijkstra), quy hoạch động và cấu trúc dữ liệu nâng cao (Segment Tree, Fenwick Tree).",
+      "en": "Binary trees, graph traversals, dynamic programming paradigms, and advanced structures (Segment Tree, BIT)."
+    },
+    "evidenceProjectIds": ["algo-vault-cp"]
+  },
+  {
+    "id": "oop-clean-code",
+    "name": "Object-Oriented Design & Clean Architecture",
+    "category": "software-development",
+    "description": {
+      "vi": "Thiết kế hướng đối tượng theo nguyên lý SOLID, phân tách trách nhiệm rõ ràng.",
+      "en": "Object-oriented software design applying SOLID principles and modular separation of concerns."
+    },
+    "evidenceProjectIds": ["academic-portfolio-astro"]
+  },
+  {
+    "id": "git-github",
+    "name": "Git & GitHub Workflows",
+    "category": "development-tools",
+    "description": {
+      "vi": "Quản lý phiên bản phân tán, CI/CD tự động qua GitHub Actions, quản lý nhánh và Pull Request.",
+      "en": "Distributed version control, automated CI/CD via GitHub Actions, branch workflows, and semantic commits."
+    },
+    "evidenceProjectIds": ["academic-portfolio-astro"]
+  },
+  {
+    "id": "linux-bash",
+    "name": "Linux / Bash Shell",
+    "category": "development-tools",
+    "description": {
+      "vi": "Môi trường dòng lệnh Unix, viết script tự động hóa và quản lý tiến trình cơ bản.",
+      "en": "Unix CLI navigation, automated shell scripting, environment variables, and process management."
+    },
+    "evidenceProjectIds": ["algo-vault-cp"]
+  },
+  {
+    "id": "sqlite-postgresql",
+    "name": "Relational Databases (SQLite / PostgreSQL)",
+    "category": "databases",
+    "description": {
+      "vi": "Thiết kế lược đồ quan hệ, chuẩn hóa cơ sở dữ liệu và truy vấn SQL có cấu trúc.",
+      "en": "Relational schema design, normalization, indexing, and structured SQL queries."
+    },
+    "evidenceProjectIds": []
+  },
+  {
+    "id": "lang-vietnamese",
+    "name": "Tiếng Việt",
+    "category": "foreign-languages",
+    "description": {
+      "vi": "Tiếng mẹ đẻ (Bản ngữ).",
+      "en": "Native language."
+    },
+    "evidenceProjectIds": []
+  },
+  {
+    "id": "lang-english",
+    "name": "English",
+    "category": "foreign-languages",
+    "description": {
+      "vi": "Sử dụng thành thạo trong đọc hiểu tài liệu nghiên cứu học thuật, giáo trình quốc tế và giao tiếp kỹ thuật.",
+      "en": "Proficient in academic research reading, international textbook study, and professional technical writing."
+    },
+    "evidenceProjectIds": ["academic-portfolio-astro"]
+  }
+]

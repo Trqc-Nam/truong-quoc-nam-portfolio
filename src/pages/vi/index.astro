@@ -1,0 +1,341 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import SectionHeading from '../../components/common/SectionHeading.astro';
+import ProjectCard from '../../components/cards/ProjectCard.astro';
+import EmptyState from '../../components/common/EmptyState.astro';
+import SocialLinks from '../../components/common/SocialLinks.astro';
+import profileData from '../../data/profile.json';
+import { getCollection } from 'astro:content';
+import { getAssetUrl, getRelativeLocaleUrl } from '../../utils/paths';
+import { getUi } from '../../utils/i18n';
+
+const currentLocale = 'vi';
+const ui = getUi(currentLocale);
+
+// Fetch featured projects
+const allProjects = await getCollection('projects', ({ data }) => data.published);
+const featuredProjects = allProjects.filter((p) => p.data.featured);
+
+// Fetch achievements (initially empty)
+const allAchievements = await getCollection('achievements', ({ data }) => data.published);
+---
+
+<PageLayout 
+  title={profileData.name[currentLocale]} 
+  description={profileData.bio[currentLocale]} 
+  currentLocale={currentLocale}
+>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <span class="hero-badge">{profileData.currentYear[currentLocale]}</span>
+        <h1 class="hero-title">{profileData.name[currentLocale]}</h1>
+        <p class="hero-headline">{profileData.headline[currentLocale]}</p>
+        <p class="hero-bio">{profileData.bio[currentLocale]}</p>
+
+        <div class="hero-cta-group">
+          <a href={getRelativeLocaleUrl(currentLocale, 'projects')} class="btn btn-primary">
+            {ui.nav.projects} →
+          </a>
+          {profileData.cv.available ? (
+            <a 
+              href={getAssetUrl(`documents/${profileData.cv.fileName}`)} 
+              class="btn btn-outline" 
+              download
+            >
+              📥 {ui.common.downloadCv}
+            </a>
+          ) : (
+            <span class="btn btn-outline btn-disabled" title={ui.common.cvUnavailable}>
+              📄 {ui.common.cvUnavailable}
+            </span>
+          )}
+          <a href={getRelativeLocaleUrl(currentLocale, 'contact')} class="btn btn-outline">
+            {ui.common.contactCta}
+          </a>
+        </div>
+
+        <div class="hero-social">
+          <SocialLinks 
+            email={profileData.contacts.email} 
+            github={profileData.contacts.github} 
+            linkedin={profileData.contacts.linkedin} 
+          />
+        </div>
+      </div>
+
+      <div class="hero-portrait-wrap">
+        <div class="portrait-card">
+          <img 
+            src={getAssetUrl(profileData.portrait.src)} 
+            alt={profileData.portrait.alt[currentLocale]} 
+            class="portrait-img"
+          />
+          <div class="portrait-meta">
+            <p class="portrait-name">{profileData.name[currentLocale]}</p>
+            <p class="portrait-inst">{profileData.institution[currentLocale]}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Academic & Technical Interests Section -->
+  <section class="interests-section section-spacing">
+    <div class="container">
+      <SectionHeading 
+        title="Lĩnh vực Quan tâm Học thuật & Kỹ thuật" 
+        subtitle="Các định hướng nghiên cứu và trọng tâm phát triển năng lực chuyên môn trong suốt khóa học."
+      />
+
+      <div class="interests-grid">
+        {profileData.academicInterests.map((interest, idx) => (
+          <div class="interest-card">
+            <span class="interest-idx">0{idx + 1}</span>
+            <h3 class="interest-name">{interest[currentLocale]}</h3>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Projects Section -->
+  <section class="featured-projects-section section-spacing">
+    <div class="container">
+      <div class="section-header-flex">
+        <SectionHeading 
+          title="Dự án Tiêu biểu" 
+          subtitle="Các đề tài học thuật và phần mềm minh chứng cho năng lực thực tế."
+        />
+        <a href={getRelativeLocaleUrl(currentLocale, 'projects')} class="view-all-link">
+          {ui.common.viewAll} ({allProjects.length}) →
+        </a>
+      </div>
+
+      <div class="projects-grid">
+        {featuredProjects.map((project) => (
+          <ProjectCard project={project} currentLocale={currentLocale} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Achievements Section -->
+  <section class="achievements-section section-spacing">
+    <div class="container">
+      <SectionHeading 
+        title="Thành tích & Chứng nhận Học thuật" 
+        subtitle="Hồ sơ xác thực các giải thưởng, học bổng và chứng nhận chính thức."
+      />
+
+      {allAchievements.length === 0 ? (
+        <EmptyState 
+          title={ui.common.emptyAchievementsTitle}
+          description={ui.common.emptyAchievementsDesc}
+          actionHref={getRelativeLocaleUrl(currentLocale, 'about')}
+          actionText="Xem quá trình học vấn →"
+        />
+      ) : (
+        <div class="achievements-grid">
+          {allAchievements.map((item) => (
+            <ProjectCard project={item as any} currentLocale={currentLocale} />
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .hero-section {
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
+    background-color: var(--color-bg-subtle);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  @media (min-width: 768px) {
+    .hero-section {
+      padding-top: var(--space-20);
+      padding-bottom: var(--space-20);
+    }
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+    align-items: center;
+  }
+
+  @media (min-width: 900px) {
+    .hero-inner {
+      grid-template-columns: 1.4fr 1fr;
+    }
+  }
+
+  .hero-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    background-color: var(--color-accent-subtle);
+    border: 1px solid var(--color-accent-border);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--space-4);
+  }
+
+  .hero-title {
+    font-size: 2.25rem;
+    color: var(--color-primary);
+    line-height: 1.15;
+    margin-bottom: var(--space-2);
+  }
+
+  @media (min-width: 768px) {
+    .hero-title {
+      font-size: 3rem;
+    }
+  }
+
+  .hero-headline {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: var(--space-4);
+  }
+
+  .hero-bio {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-bottom: var(--space-6);
+    max-width: 600px;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+  }
+
+  .btn-disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    background-color: var(--color-bg);
+  }
+
+  .hero-social {
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .hero-portrait-wrap {
+    display: flex;
+    justify-content: center;
+  }
+
+  .portrait-card {
+    width: 100%;
+    max-width: 360px;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+
+  .portrait-img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background-color: var(--color-primary);
+  }
+
+  .portrait-meta {
+    padding: var(--space-4);
+    text-align: center;
+  }
+
+  .portrait-name {
+    font-weight: 700;
+    color: var(--color-primary);
+    font-size: 1.125rem;
+  }
+
+  .portrait-inst {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  .interests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .interest-card {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    transition: all var(--transition-fast);
+  }
+
+  .interest-card:hover {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent-subtle);
+  }
+
+  .interest-idx {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--color-accent);
+    opacity: 0.8;
+  }
+
+  .interest-name {
+    font-size: 1rem;
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .section-header-flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+  }
+
+  @media (min-width: 640px) {
+    .section-header-flex {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  .view-all-link {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    white-space: nowrap;
+  }
+
+  .view-all-link:hover {
+    text-decoration: underline;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-6);
+  }
+</style>

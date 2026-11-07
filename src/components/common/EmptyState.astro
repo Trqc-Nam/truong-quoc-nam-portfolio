@@ -1,0 +1,60 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  icon?: string;
+  actionHref?: string;
+  actionText?: string;
+}
+
+const { title, description, icon = '📁', actionHref, actionText } = Astro.props;
+---
+
+<div class="empty-state-box">
+  <div class="empty-icon" aria-hidden="true">{icon}</div>
+  <h3 class="empty-title">{title}</h3>
+  <p class="empty-description">{description}</p>
+  {actionHref && actionText && (
+    <a href={actionHref} class="btn btn-outline btn-sm empty-btn">
+      {actionText}
+    </a>
+  )}
+</div>
+
+<style>
+  .empty-state-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--space-12) var(--space-6);
+    background-color: var(--color-bg-subtle);
+    border: 1px dashed var(--color-border-strong);
+    border-radius: var(--radius-lg);
+    margin: var(--space-6) 0;
+  }
+
+  .empty-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-3);
+    opacity: 0.8;
+  }
+
+  .empty-title {
+    font-size: 1.125rem;
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .empty-description {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    max-width: 480px;
+    margin-bottom: var(--space-4);
+  }
+
+  .empty-btn {
+    margin-top: var(--space-2);
+  }
+</style>

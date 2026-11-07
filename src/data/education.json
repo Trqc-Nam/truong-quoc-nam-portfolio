@@ -1,0 +1,53 @@
+[
+  {
+    "id": "uit-cs-undergraduate",
+    "institution": {
+      "vi": "Trường Đại học Công nghệ Thông tin, ĐHQG-HCM (UIT)",
+      "en": "University of Information Technology, VNU-HCM (UIT)"
+    },
+    "degree": {
+      "vi": "Cử nhân Khoa học Máy tính",
+      "en": "Bachelor of Science in Computer Science"
+    },
+    "major": {
+      "vi": "Khoa học Máy tính",
+      "en": "Computer Science"
+    },
+    "period": {
+      "vi": "2026 — Hiện tại (Dự kiến 2030)",
+      "en": "2026 — Present (Expected 2030)"
+    },
+    "status": {
+      "vi": "Đang theo học (Năm thứ nhất)",
+      "en": "Undergraduate Student (First Year)"
+    },
+    "description": {
+      "vi": "Chương trình đào tạo chính quy trang bị nền tảng toán học, cấu trúc dữ liệu giải thuật chuyên sâu, kiến trúc máy tính, nguyên lý hệ điều hành và định hướng chuyên sâu về Trí tuệ nhân tạo.",
+      "en": "Formal curriculum covering core mathematics, advanced data structures & algorithms, computer systems architecture, operating systems, and specialized courses in Artificial Intelligence."
+    },
+    "relevantCoursework": [
+      {
+        "vi": "Cấu trúc Dữ liệu & Giải thuật nâng cao",
+        "en": "Data Structures & Advanced Algorithms"
+      },
+      {
+        "vi": "Toán rời rạc & Đại số tuyến tính",
+        "en": "Discrete Mathematics & Linear Algebra"
+      },
+      {
+        "vi": "Nhập môn Lập trình & Kỹ thuật lập trình (C++)",
+        "en": "Introduction to Programming & Programming Methodology (C++)"
+      },
+      {
+        "vi": "Xác suất Thống kê cho Khoa học Dữ liệu",
+        "en": "Probability & Statistics for Data Science"
+      }
+    ],
+    "highlights": [
+      {
+        "vi": "Định hướng nghiên cứu AI/ML và tham gia các hoạt động học thuật tại UIT",
+        "en": "Focusing on AI/ML research and active participation in academic computing clubs at UIT"
+      }
+    ]
+  }
+]

@@ -1,0 +1,19 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const targetUrl = `${base}/vi/`;
+---
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="refresh" content={`0;url=${targetUrl}`} />
+  <title>Đang chuyển hướng / Redirecting...</title>
+  <script define:vars={{ targetUrl }}>
+    window.location.replace(targetUrl);
+  </script>
+</head>
+<body>
+  <p>Đang chuyển hướng sang <a href={targetUrl}>Hồ sơ học thuật Trương Quốc Nam</a>...</p>
+</body>
+</html>

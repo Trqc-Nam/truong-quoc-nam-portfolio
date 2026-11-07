@@ -1,0 +1,90 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import SectionHeading from '../../components/common/SectionHeading.astro';
+import SkillGroup from '../../components/cards/SkillGroup.astro';
+import skillsData from '../../data/skills.json';
+import { getUi } from '../../utils/i18n';
+import type { SkillCategory, SkillItem } from '../../types';
+
+const currentLocale = 'vi';
+const ui = getUi(currentLocale);
+
+// Group skills by category
+const categoryOrder: SkillCategory[] = [
+  'programming-languages',
+  'frameworks-libraries',
+  'ai-ml',
+  'computer-vision',
+  'software-development',
+  'development-tools',
+  'databases',
+  'foreign-languages',
+];
+
+const groupedSkills = categoryOrder.map((catKey) => ({
+  categoryKey: catKey,
+  title: ui.skillCategories[catKey] || catKey,
+  skills: (skillsData as unknown as SkillItem[]).filter((s) => s.category === catKey),
+})).filter((group) => group.skills.length > 0);
+---
+
+<PageLayout 
+  title="Kỹ năng Chuyên môn & Minh chứng Năng lực" 
+  description="Hệ thống kỹ năng học thuật, ngôn ngữ lập trình và công nghệ được minh chứng qua các đề tài thực tế của Trương Quốc Nam."
+  currentLocale={currentLocale}
+>
+  <div class="container section-spacing">
+    <SectionHeading 
+      title="Kỹ năng Chuyên môn & Học thuật" 
+      subtitle="Định hướng đánh giá năng lực thực chất dựa trên bằng chứng dự án cụ thể, nói không với các thanh phần trăm cảm tính."
+    />
+
+    <div class="skills-explanation-card">
+      <p>
+        💡 <strong>Nguyên tắc minh chứng:</strong> Mỗi kỹ năng kỹ thuật cốt lõi đều được liên kết trực tiếp với các dự án thực tế trong danh mục (ví dụ biểu tượng 🔗 <em>algo-vault-cp</em>). Điều này đảm bảo tính xác thực học thuật và khả năng kiểm chứng công khai của năng lực lập trình.
+      </p>
+    </div>
+
+    <div class="skills-grid">
+      {groupedSkills.map((group) => (
+        <SkillGroup 
+          categoryTitle={group.title} 
+          skills={group.skills} 
+          currentLocale={currentLocale} 
+        />
+      ))}
+    </div>
+  </div>
+</PageLayout>
+
+<style>
+  .skills-explanation-card {
+    background-color: var(--color-bg-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-5);
+    margin-bottom: var(--space-10);
+  }
+
+  .skills-explanation-card p {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  .skills-explanation-card strong {
+    color: var(--color-primary);
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .skills-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

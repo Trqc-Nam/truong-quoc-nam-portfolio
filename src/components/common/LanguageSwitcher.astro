@@ -1,0 +1,58 @@
+---
+import { switchLanguage } from '../../utils/paths';
+import type { SupportedLanguage } from '../../types';
+
+interface Props {
+  currentLocale: SupportedLanguage;
+  currentPath: string;
+}
+
+const { currentLocale, currentPath } = Astro.props;
+const targetLocale: SupportedLanguage = currentLocale === 'vi' ? 'en' : 'vi';
+const targetUrl = switchLanguage(currentPath, targetLocale);
+const label = currentLocale === 'vi' ? 'EN' : 'VI';
+const title = currentLocale === 'vi' ? 'Switch to English' : 'Chuyển sang Tiếng Việt';
+---
+
+<a 
+  href={targetUrl} 
+  class="lang-switch-btn" 
+  title={title}
+  aria-label={title}
+>
+  <span class={currentLocale === 'vi' ? 'active-lang' : ''}>VI</span>
+  <span class="divider">/</span>
+  <span class={currentLocale === 'en' ? 'active-lang' : ''}>EN</span>
+</a>
+
+<style>
+  .lang-switch-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text-subtle);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    transition: all var(--transition-fast);
+  }
+
+  .lang-switch-btn:hover {
+    color: var(--color-primary);
+    border-color: var(--color-border-hover);
+    background-color: var(--color-bg-subtle);
+  }
+
+  .active-lang {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  .divider {
+    color: var(--color-border-strong);
+    opacity: 0.6;
+  }
+</style>

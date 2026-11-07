@@ -1,0 +1,95 @@
+{
+  "name": {
+    "vi": "Trương Quốc Nam",
+    "en": "Truong Quoc Nam"
+  },
+  "headline": {
+    "vi": "Sinh viên Khoa học Máy tính — Trường Đại học Công nghệ Thông tin, ĐHQG-HCM",
+    "en": "Computer Science Undergraduate — University of Information Technology, VNU-HCM"
+  },
+  "institution": {
+    "vi": "Trường Đại học Công nghệ Thông tin, ĐHQG-HCM (UIT – VNU-HCM)",
+    "en": "University of Information Technology, VNU-HCM (UIT – VNU-HCM)"
+  },
+  "faculty": {
+    "vi": "Khoa Khoa học Máy tính",
+    "en": "Faculty of Computer Science"
+  },
+  "program": {
+    "vi": "Cử nhân Khoa học Máy tính",
+    "en": "Bachelor of Science in Computer Science"
+  },
+  "currentYear": {
+    "vi": "Sinh viên Năm thứ nhất (Khóa 2026)",
+    "en": "First-year Undergraduate (Class of 2026)"
+  },
+  "bio": {
+    "vi": "Tôi là sinh viên năm nhất chuyên ngành Khoa học Máy tính tại UIT – ĐHQG-HCM. Định hướng học thuật và nghiên cứu của tôi tập trung vào Trí tuệ Nhân tạo, Thị giác Máy tính và Kỹ thuật Phần mềm. Tôi đam mê giải quyết các bài toán thuật toán thông qua lập trình thi đấu và xây dựng các hệ thống phần mềm có tính ứng dụng thực tiễn cao.",
+    "en": "I am a first-year Computer Science undergraduate at UIT – VNU-HCM. My academic interests center on Artificial Intelligence, Computer Vision, and Software Engineering. I am driven by rigorous algorithmic problem-solving and developing maintainable, high-impact software systems."
+  },
+  "academicInterests": [
+    {
+      "vi": "Trí tuệ nhân tạo & Machine Learning",
+      "en": "Artificial Intelligence & Machine Learning"
+    },
+    {
+      "vi": "Thị giác máy tính (Computer Vision)",
+      "en": "Computer Vision"
+    },
+    {
+      "vi": "Kỹ thuật phần mềm (Software Engineering)",
+      "en": "Software Engineering"
+    },
+    {
+      "vi": "Lập trình thi đấu (Competitive Programming)",
+      "en": "Competitive Programming"
+    },
+    {
+      "vi": "Nghiên cứu & Dự án học thuật (Academic Research)",
+      "en": "Academic Research & Scientific Projects"
+    }
+  ],
+  "careerDirections": [
+    {
+      "title": {
+        "vi": "Nghiên cứu & Phát triển AI / Computer Vision",
+        "en": "AI / Computer Vision Research & Engineering"
+      },
+      "description": {
+        "vi": "Phát triển các mô hình học sâu, giải thuật thị giác máy tính và ứng dụng AI vào phân tích dữ liệu hình ảnh, video phục vụ khoa học và đời sống.",
+        "en": "Developing deep learning architectures and computer vision algorithms for visual data processing across academic and applied domains."
+      }
+    },
+    {
+      "title": {
+        "vi": "Kỹ thuật Phần mềm & Hệ thống (Software Engineering)",
+        "en": "Software Engineering & Systems"
+      },
+      "description": {
+        "vi": "Thiết kế, xây dựng các kiến trúc phần mềm sạch, hiệu năng cao, an toàn và dễ bảo trì theo các chuẩn mực kỹ thuật công nghiệp.",
+        "en": "Designing and engineering robust, high-performance, maintainable software architectures adhering to industry best practices."
+      }
+    }
+  ],
+  "contacts": {
+    "email": "nam.truongquoc@uit.edu.vn",
+    "github": "https://github.com/Trqc-Nam",
+    "linkedin": "",
+    "collaborationInterests": {
+      "vi": "Mở rộng cơ hội cộng tác trong các đề tài nghiên cứu AI/CV tại trường, dự án mã nguồn mở và nhóm học thuật lập trình thuật toán.",
+      "en": "Open to academic research collaborations in AI/CV, open-source software initiatives, and algorithmic problem-solving study groups."
+    }
+  },
+  "cv": {
+    "available": false,
+    "fileName": "Truong-Quoc-Nam-Academic-CV.pdf",
+    "lastUpdated": "2026"
+  },
+  "portrait": {
+    "src": "images/profile/portrait-placeholder.svg",
+    "alt": {
+      "vi": "Chân dung Trương Quốc Nam",
+      "en": "Truong Quoc Nam Portrait"
+    }
+  }
+}

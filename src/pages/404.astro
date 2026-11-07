@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getRelativeLocaleUrl } from '../utils/paths';
+
+const homeVi = getRelativeLocaleUrl('vi', '');
+const homeEn = getRelativeLocaleUrl('en', '');
+---
+
+<BaseLayout title="404 — Không tìm thấy trang / Page Not Found" currentLocale="vi">
+  <div class="not-found-wrap">
+    <div class="not-found-card">
+      <span class="error-code">404</span>
+      <h1 class="error-title">Không tìm thấy trang / Page Not Found</h1>
+      <p class="error-desc">
+        Trang bạn đang tìm kiếm không tồn tại hoặc đã được di chuyển sang địa chỉ mới.<br />
+        The requested resource is unavailable or has been relocated.
+      </p>
+      <div class="error-actions">
+        <a href={homeVi} class="btn btn-primary">← Về trang chủ (Tiếng Việt)</a>
+        <a href={homeEn} class="btn btn-outline">← Back to Home (English)</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .not-found-wrap {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-6);
+    background-color: var(--color-bg-subtle);
+  }
+
+  .not-found-card {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-12) var(--space-8);
+    text-align: center;
+    max-width: 540px;
+    box-shadow: var(--shadow-md);
+  }
+
+  .error-code {
+    display: block;
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--color-accent);
+    line-height: 1;
+    margin-bottom: var(--space-4);
+  }
+
+  .error-title {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-bottom: var(--space-3);
+  }
+
+  .error-desc {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-8);
+  }
+
+  .error-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 640px) {
+    .error-actions {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+</style>

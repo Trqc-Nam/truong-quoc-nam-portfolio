@@ -1,0 +1,135 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { SupportedLanguage } from '../../types';
+import { getAssetUrl } from '../../utils/paths';
+import { getUi } from '../../utils/i18n';
+
+interface Props {
+  achievement: CollectionEntry<'achievements'>;
+  currentLocale: SupportedLanguage;
+}
+
+const { achievement, currentLocale } = Astro.props;
+const data = achievement.data;
+const ui = getUi(currentLocale);
+const categoryLabel = ui.achievementCategories[data.category] || data.category;
+---
+
+<article class="achievement-card">
+  <div class="achieve-header">
+    <div class="achieve-meta">
+      <span class="badge badge-category">{categoryLabel}</span>
+      <time class="achieve-date" datetime={data.date}>{data.date}</time>
+    </div>
+    <h3 class="achieve-title">{data.title[currentLocale]}</h3>
+    <p class="achieve-org">{data.organization}</p>
+  </div>
+
+  <p class="achieve-desc">{data.description[currentLocale]}</p>
+
+  {data.evidenceImage && (
+    <div class="achieve-img-wrap">
+      <img src={getAssetUrl(data.evidenceImage)} alt={data.title[currentLocale]} loading="lazy" class="achieve-img" />
+    </div>
+  )}
+
+  {data.verificationUrl && (
+    <div class="achieve-footer">
+      <a 
+        href={data.verificationUrl} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="achieve-verify-link"
+      >
+        <span>{ui.common.viewEvidence}</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+      </a>
+    </div>
+  )}
+</article>
+
+<style>
+  .achievement-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .achievement-card:hover {
+    border-color: var(--color-border-hover);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .achieve-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .achieve-date {
+    font-size: 0.8125rem;
+    color: var(--color-text-subtle);
+    font-weight: 500;
+  }
+
+  .achieve-title {
+    font-size: 1.125rem;
+    color: var(--color-primary);
+    margin-bottom: var(--space-1);
+  }
+
+  .achieve-org {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
+  .achieve-desc {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+  }
+
+  .achieve-img-wrap {
+    margin-top: var(--space-2);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    max-height: 240px;
+  }
+
+  .achieve-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .achieve-footer {
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .achieve-verify-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
+  .achieve-verify-link:hover {
+    color: var(--color-accent-hover);
+    text-decoration: underline;
+  }
+</style>

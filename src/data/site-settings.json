@@ -1,0 +1,62 @@
+{
+  "siteTitle": {
+    "vi": "Trương Quốc Nam — Portfolio Học thuật & Chuyên môn",
+    "en": "Truong Quoc Nam — Academic & Professional Portfolio"
+  },
+  "siteDescription": {
+    "vi": "Hồ sơ học thuật, các đề tài nghiên cứu AI/Machine Learning, Thị giác máy tính và dự án kỹ thuật phần mềm của Trương Quốc Nam — Sinh viên Khoa học Máy tính UIT.",
+    "en": "Academic portfolio, AI/ML research projects, Computer Vision studies, and software engineering work of Truong Quoc Nam — Computer Science undergraduate at UIT."
+  },
+  "author": "Truong Quoc Nam",
+  "repository": "https://github.com/Trqc-Nam/truong-quoc-nam-portfolio",
+  "navItems": [
+    {
+      "key": "home",
+      "path": "",
+      "label": {
+        "vi": "Trang chủ",
+        "en": "Home"
+      }
+    },
+    {
+      "key": "about",
+      "path": "about",
+      "label": {
+        "vi": "Giới thiệu & Học vấn",
+        "en": "About & Education"
+      }
+    },
+    {
+      "key": "projects",
+      "path": "projects",
+      "label": {
+        "vi": "Dự án",
+        "en": "Projects"
+      }
+    },
+    {
+      "key": "achievements",
+      "path": "achievements",
+      "label": {
+        "vi": "Thành tích",
+        "en": "Achievements"
+      }
+    },
+    {
+      "key": "skills",
+      "path": "skills",
+      "label": {
+        "vi": "Kỹ năng",
+        "en": "Skills"
+      }
+    },
+    {
+      "key": "contact",
+      "path": "contact",
+      "label": {
+        "vi": "Liên hệ & CV",
+        "en": "Contact & CV"
+      }
+    }
+  ]
+}

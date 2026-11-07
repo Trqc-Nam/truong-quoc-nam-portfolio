@@ -1,0 +1,236 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro';
+import SectionHeading from '../../../components/common/SectionHeading.astro';
+import ProjectCard from '../../../components/cards/ProjectCard.astro';
+import EmptyState from '../../../components/common/EmptyState.astro';
+import { getCollection } from 'astro:content';
+import { getUi } from '../../../utils/i18n';
+import type { ProjectCategory } from '../../../types';
+
+const currentLocale = 'en';
+const ui = getUi(currentLocale);
+
+// Fetch all published projects sorted by featured first, then newest
+const projects = await getCollection('projects', ({ data }) => data.published);
+projects.sort((a, b) => {
+  if (a.data.featured && !b.data.featured) return -1;
+  if (!a.data.featured && b.data.featured) return 1;
+  return b.data.timeline.startDate.localeCompare(a.data.timeline.startDate);
+});
+
+const categories: { key: string; label: string }[] = [
+  { key: 'all', label: ui.common.filterAll },
+  { key: 'ai-ml', label: ui.projectCategories['ai-ml'] },
+  { key: 'computer-vision', label: ui.projectCategories['computer-vision'] },
+  { key: 'software-engineering', label: ui.projectCategories['software-engineering'] },
+  { key: 'competitive-programming', label: ui.projectCategories['competitive-programming'] },
+  { key: 'academic-research', label: ui.projectCategories['academic-research'] },
+];
+---
+
+<PageLayout 
+  title="Projects & Research Index" 
+  description="Academic research projects, AI/Machine Learning experiments, and algorithmic software systems engineered by Truong Quoc Nam."
+  currentLocale={currentLocale}
+>
+  <div class="container section-spacing">
+    <SectionHeading 
+      title="Academic & Engineering Projects" 
+      subtitle="Scientific investigations, software engineering implementations, and competitive algorithmic libraries."
+    />
+
+    <!-- Filter and Search Controls -->
+    <div class="filter-controls-wrap">
+      <div class="search-input-box">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input 
+          type="search" 
+          id="project-search-input" 
+          placeholder={ui.common.searchPlaceholder}
+          aria-label={ui.common.searchPlaceholder}
+        />
+      </div>
+
+      <div class="category-tabs" role="tablist" aria-label="Filter by category">
+        {categories.map((cat, idx) => (
+          <button 
+            type="button" 
+            role="tab" 
+            class:list={['cat-tab-btn', { 'active': idx === 0 }]}
+            data-cat={cat.key}
+            aria-selected={idx === 0 ? 'true' : 'false'}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Live Results Counter -->
+    <div class="results-bar">
+      <p id="results-count-text">
+        Showing <strong>{projects.length}</strong> projects
+      </p>
+    </div>
+
+    <!-- Projects Grid Container -->
+    <div id="projects-grid" class="projects-grid">
+      {projects.map((project) => (
+        <ProjectCard project={project} currentLocale={currentLocale} />
+      ))}
+    </div>
+
+    <!-- Hidden Empty State shown via JS when 0 matches -->
+    <div id="no-results-state" style="display: none;">
+      <EmptyState 
+        title={ui.common.emptyProjectsTitle}
+        description={ui.common.emptyProjectsDesc}
+        icon="🔍"
+      />
+    </div>
+  </div>
+</PageLayout>
+
+<script>
+  const searchInput = document.getElementById('project-search-input') as HTMLInputElement | null;
+  const tabButtons = document.querySelectorAll('.cat-tab-btn');
+  const projectCards = document.querySelectorAll<HTMLElement>('.project-card');
+  const resultsCountText = document.getElementById('results-count-text');
+  const noResultsState = document.getElementById('no-results-state');
+
+  let currentCategory = 'all';
+  let searchQuery = '';
+
+  function filterProjects() {
+    let visibleCount = 0;
+
+    projectCards.forEach((card) => {
+      const cardCategory = card.getAttribute('data-category') || '';
+      const cardTitle = card.getAttribute('data-title') || '';
+      const cardTech = card.getAttribute('data-tech') || '';
+
+      const matchesCat = currentCategory === 'all' || cardCategory === currentCategory;
+      const matchesSearch = !searchQuery || 
+        cardTitle.includes(searchQuery) || 
+        cardTech.includes(searchQuery);
+
+      if (matchesCat && matchesSearch) {
+        card.style.display = 'flex';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    if (resultsCountText) {
+      resultsCountText.innerHTML = `Showing <strong>${visibleCount}</strong> projects`;
+    }
+
+    if (noResultsState) {
+      noResultsState.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+  }
+
+  tabButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      tabButtons.forEach((b) => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      currentCategory = btn.getAttribute('data-cat') || 'all';
+      filterProjects();
+    });
+  });
+
+  searchInput?.addEventListener('input', (e) => {
+    searchQuery = (e.target as HTMLInputElement).value.trim().toLowerCase();
+    filterProjects();
+  });
+</script>
+
+<style>
+  .filter-controls-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  .search-input-box {
+    position: relative;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: var(--space-3);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-subtle);
+    pointer-events: none;
+  }
+
+  .search-input-box input {
+    width: 100%;
+    padding: 0.65rem var(--space-4) 0.65rem 2.5rem;
+    font-size: 0.9375rem;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+    transition: all var(--transition-fast);
+  }
+
+  .search-input-box input:focus {
+    border-color: var(--color-accent);
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-accent-subtle);
+  }
+
+  .category-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .cat-tab-btn {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    background-color: var(--color-bg-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .cat-tab-btn:hover {
+    color: var(--color-primary);
+    border-color: var(--color-border-hover);
+  }
+
+  .cat-tab-btn.active {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    border-color: var(--color-primary);
+  }
+
+  .results-bar {
+    font-size: 0.875rem;
+    color: var(--color-text-subtle);
+    margin-bottom: var(--space-6);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-6);
+  }
+</style>

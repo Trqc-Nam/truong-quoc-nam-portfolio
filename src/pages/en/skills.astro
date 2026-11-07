@@ -1,0 +1,90 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import SectionHeading from '../../components/common/SectionHeading.astro';
+import SkillGroup from '../../components/cards/SkillGroup.astro';
+import skillsData from '../../data/skills.json';
+import { getUi } from '../../utils/i18n';
+import type { SkillCategory, SkillItem } from '../../types';
+
+const currentLocale = 'en';
+const ui = getUi(currentLocale);
+
+// Group skills by category
+const categoryOrder: SkillCategory[] = [
+  'programming-languages',
+  'frameworks-libraries',
+  'ai-ml',
+  'computer-vision',
+  'software-development',
+  'development-tools',
+  'databases',
+  'foreign-languages',
+];
+
+const groupedSkills = categoryOrder.map((catKey) => ({
+  categoryKey: catKey,
+  title: ui.skillCategories[catKey] || catKey,
+  skills: (skillsData as unknown as SkillItem[]).filter((s) => s.category === catKey),
+})).filter((group) => group.skills.length > 0);
+---
+
+<PageLayout 
+  title="Technical Skills & Competency Evidence" 
+  description="Evidence-oriented technical competencies, programming proficiencies, and developer tooling of Truong Quoc Nam."
+  currentLocale={currentLocale}
+>
+  <div class="container section-spacing">
+    <SectionHeading 
+      title="Technical & Academic Skills" 
+      subtitle="Competencies backed by concrete project deliverables and verifiable codebases, avoiding arbitrary subjective proficiency percentages."
+    />
+
+    <div class="skills-explanation-card">
+      <p>
+        💡 <strong>Evidence-Oriented Standard:</strong> Core competencies are cross-referenced with functional project repositories (e.g. 🔗 <em>algo-vault-cp</em>). This guarantees academic integrity and enables verifiable technical inspection.
+      </p>
+    </div>
+
+    <div class="skills-grid">
+      {groupedSkills.map((group) => (
+        <SkillGroup 
+          categoryTitle={group.title} 
+          skills={group.skills} 
+          currentLocale={currentLocale} 
+        />
+      ))}
+    </div>
+  </div>
+</PageLayout>
+
+<style>
+  .skills-explanation-card {
+    background-color: var(--color-bg-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-5);
+    margin-bottom: var(--space-10);
+  }
+
+  .skills-explanation-card p {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  .skills-explanation-card strong {
+    color: var(--color-primary);
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .skills-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

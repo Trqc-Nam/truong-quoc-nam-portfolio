@@ -1,0 +1,291 @@
+---
+import { getRelativeLocaleUrl } from '../../utils/paths';
+import { getUi } from '../../utils/i18n';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import siteSettings from '../../data/site-settings.json';
+import type { SupportedLanguage } from '../../types';
+
+interface Props {
+  currentLocale: SupportedLanguage;
+  currentPath: string;
+}
+
+const { currentLocale, currentPath } = Astro.props;
+const ui = getUi(currentLocale);
+
+// Check active route
+function isActive(navPath: string): boolean {
+  const targetUrl = getRelativeLocaleUrl(currentLocale, navPath);
+  if (navPath === '') {
+    return currentPath === targetUrl || currentPath === `${targetUrl}/`;
+  }
+  return currentPath.includes(targetUrl);
+}
+---
+
+<nav class="nav-container" aria-label="Main Navigation">
+  <div class="nav-inner container">
+    <a href={getRelativeLocaleUrl(currentLocale, '')} class="nav-brand">
+      <span class="brand-name">Trương Quốc Nam</span>
+      <span class="brand-tag">UIT • VNU-HCM</span>
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <div class="nav-desktop">
+      <ul class="nav-links">
+        {siteSettings.navItems.map((item) => (
+          <li>
+            <a 
+              href={getRelativeLocaleUrl(currentLocale, item.path)} 
+              class:list={['nav-link', { 'active': isActive(item.path) }]}
+              aria-current={isActive(item.path) ? 'page' : undefined}
+            >
+              {item.label[currentLocale]}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <div class="nav-actions">
+        <LanguageSwitcher currentLocale={currentLocale} currentPath={currentPath} />
+        <a 
+          href={import.meta.env.BASE_URL.replace(/\/$/, '') + '/admin/'} 
+          class="admin-link"
+          title={ui.nav.admin}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {ui.nav.admin}
+        </a>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Toggle -->
+    <div class="nav-mobile-toggle">
+      <LanguageSwitcher currentLocale={currentLocale} currentPath={currentPath} />
+      <button 
+        id="mobile-menu-btn" 
+        class="menu-btn" 
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+      >
+        <svg class="icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <svg class="icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div id="mobile-menu" class="mobile-menu" style="display: none;">
+    <ul class="mobile-nav-links container">
+      {siteSettings.navItems.map((item) => (
+        <li>
+          <a 
+            href={getRelativeLocaleUrl(currentLocale, item.path)} 
+            class:list={['mobile-nav-link', { 'active': isActive(item.path) }]}
+          >
+            {item.label[currentLocale]}
+          </a>
+        </li>
+      ))}
+      <li class="mobile-admin-item">
+        <a 
+          href={import.meta.env.BASE_URL.replace(/\/$/, '') + '/admin/'} 
+          class="mobile-nav-link admin-highlight"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          ⚙️ {ui.nav.admin}
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = btn?.querySelector('.icon-open') as HTMLElement | null;
+  const iconClose = btn?.querySelector('.icon-close') as HTMLElement | null;
+
+  btn?.addEventListener('click', () => {
+    const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!isExpanded));
+    if (menu) {
+      menu.style.display = isExpanded ? 'none' : 'block';
+    }
+    if (iconOpen && iconClose) {
+      iconOpen.style.display = isExpanded ? 'block' : 'none';
+      iconClose.style.display = isExpanded ? 'none' : 'block';
+    }
+  });
+</script>
+
+<style>
+  .nav-container {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-border);
+    height: var(--header-height);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .nav-brand {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+  }
+
+  .brand-name {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .brand-tag {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-text-subtle);
+  }
+
+  .nav-desktop {
+    display: none;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 900px) {
+    .nav-desktop {
+      display: flex;
+    }
+    .nav-mobile-toggle {
+      display: none;
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .nav-link {
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+  }
+
+  .nav-link:hover {
+    color: var(--color-primary);
+    background-color: var(--color-bg-subtle);
+  }
+
+  .nav-link.active {
+    color: var(--color-accent);
+    font-weight: 600;
+    background-color: var(--color-accent-subtle);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding-left: var(--space-4);
+    border-left: 1px solid var(--color-border);
+  }
+
+  .admin-link {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-text-subtle);
+    padding: 0.35rem 0.65rem;
+    border-radius: var(--radius-sm);
+    background-color: var(--color-bg-subtle);
+    border: 1px solid var(--color-border);
+    transition: all var(--transition-fast);
+  }
+
+  .admin-link:hover {
+    color: var(--color-primary);
+    border-color: var(--color-border-hover);
+  }
+
+  .nav-mobile-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 0.35rem;
+    color: var(--color-primary);
+    cursor: pointer;
+  }
+
+  .mobile-menu {
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+  }
+
+  .mobile-nav-links {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .mobile-nav-link {
+    display: block;
+    padding: 0.75rem var(--space-4);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    border-radius: var(--radius-md);
+  }
+
+  .mobile-nav-link:hover, .mobile-nav-link.active {
+    background-color: var(--color-accent-subtle);
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .mobile-admin-item {
+    margin-top: var(--space-2);
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .admin-highlight {
+    color: var(--color-primary);
+    background-color: var(--color-bg-subtle);
+  }
+</style>

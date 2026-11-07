@@ -1,0 +1,116 @@
+---
+import type { SkillItem, SupportedLanguage } from '../../types';
+import { getUi } from '../../utils/i18n';
+import { getRelativeLocaleUrl } from '../../utils/paths';
+
+interface Props {
+  categoryTitle: string;
+  skills: SkillItem[];
+  currentLocale: SupportedLanguage;
+}
+
+const { categoryTitle, skills, currentLocale } = Astro.props;
+const ui = getUi(currentLocale);
+---
+
+<section class="skill-group-card">
+  <h3 class="skill-group-title">{categoryTitle}</h3>
+  
+  <ul class="skill-items-list">
+    {skills.map((skill) => (
+      <li class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">{skill.name}</span>
+          {skill.evidenceProjectIds && skill.evidenceProjectIds.length > 0 && (
+            <div class="evidence-badges">
+              {skill.evidenceProjectIds.map((pid) => (
+                <a 
+                  href={getRelativeLocaleUrl(currentLocale, `projects/${pid}`)} 
+                  class="evidence-link"
+                  title={`${ui.common.evidenceProjects}: ${pid}`}
+                >
+                  🔗 {pid}
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+        
+        {skill.description && (
+          <p class="skill-desc">{skill.description[currentLocale]}</p>
+        )}
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .skill-group-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+  }
+
+  .skill-group-title {
+    font-size: 1.125rem;
+    color: var(--color-primary);
+    padding-bottom: var(--space-3);
+    margin-bottom: var(--space-4);
+    border-bottom: 2px solid var(--color-accent-subtle);
+  }
+
+  .skill-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .skill-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .skill-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+
+  .skill-name {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  .evidence-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  .evidence-link {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    padding: 0.15rem 0.45rem;
+    border-radius: var(--radius-sm);
+    background-color: var(--color-accent-subtle);
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent-border);
+    transition: all var(--transition-fast);
+  }
+
+  .evidence-link:hover {
+    background-color: var(--color-accent);
+    color: #ffffff;
+  }
+
+  .skill-desc {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+</style>

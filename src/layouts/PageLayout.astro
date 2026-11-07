@@ -1,0 +1,45 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Navigation from '../components/common/Navigation.astro';
+import Footer from '../components/common/Footer.astro';
+import type { SupportedLanguage } from '../types';
+
+interface Props {
+  title?: string;
+  description?: string;
+  currentLocale: SupportedLanguage;
+  ogImage?: string;
+}
+
+const { title, description, currentLocale, ogImage } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<BaseLayout 
+  title={title} 
+  description={description} 
+  currentLocale={currentLocale}
+  ogImage={ogImage}
+>
+  <div class="site-wrapper">
+    <Navigation currentLocale={currentLocale} currentPath={currentPath} />
+    
+    <main id="main-content" class="main-content">
+      <slot />
+    </main>
+
+    <Footer currentLocale={currentLocale} />
+  </div>
+</BaseLayout>
+
+<style>
+  .site-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .main-content {
+    flex: 1;
+  }
+</style>

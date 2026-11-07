@@ -1,0 +1,175 @@
+backend:
+  name: github
+  repo: Trqc-Nam/truong-quoc-nam-portfolio
+  branch: main
+
+media_folder: public/images/uploads
+public_folder: images/uploads
+
+collections:
+  - name: "projects"
+    label: "Dự án / Projects"
+    label_singular: "Dự án / Project"
+    folder: "src/content/projects"
+    create: true
+    slug: "{{id}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Mã định danh (ID)", name: "id", widget: "string" }
+      - { label: "Dự án tiêu biểu (Featured)", name: "featured", widget: "boolean", default: false }
+      - { label: "Công khai (Published)", name: "published", widget: "boolean", default: true }
+      - label: "Phân loại (Category)"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Trí tuệ nhân tạo & Machine Learning", value: "ai-ml" }
+          - { label: "Thị giác máy tính (Computer Vision)", value: "computer-vision" }
+          - { label: "Kỹ thuật phần mềm (Software Engineering)", value: "software-engineering" }
+          - { label: "Lập trình thi đấu (Competitive Programming)", value: "competitive-programming" }
+          - { label: "Nghiên cứu học thuật (Academic Research)", value: "academic-research" }
+      - label: "Tiêu đề (Title)"
+        name: "title"
+        widget: "object"
+        fields:
+          - { label: "Tiếng Việt", name: "vi", widget: "string" }
+          - { label: "English", name: "en", widget: "string" }
+      - label: "Mô tả ngắn (Description)"
+        name: "description"
+        widget: "object"
+        fields:
+          - { label: "Tiếng Việt", name: "vi", widget: "text" }
+          - { label: "English", name: "en", widget: "text" }
+      - { label: "Ảnh đại diện (Thumbnail)", name: "thumbnail", widget: "image" }
+      - { label: "Bộ sưu tập ảnh (Gallery)", name: "gallery", widget: "list", field: { label: "Image", name: "image", widget: "image" }, required: false }
+      - { label: "Công nghệ áp dụng (Technologies)", name: "technologies", widget: "list" }
+      - label: "Liên kết ngoài (Links)"
+        name: "links"
+        widget: "object"
+        fields:
+          - { label: "GitHub URL", name: "github", widget: "string", required: false }
+          - { label: "Live Demo URL", name: "demo", widget: "string", required: false }
+          - { label: "Paper / Report URL", name: "paper", widget: "string", required: false }
+      - label: "Thời gian thực hiện (Timeline)"
+        name: "timeline"
+        widget: "object"
+        fields:
+          - { label: "Ngày bắt đầu (YYYY-MM)", name: "startDate", widget: "string" }
+          - { label: "Ngày hoàn thành (YYYY-MM)", name: "completionDate", widget: "string", required: false }
+          - label: "Trạng thái (Status)"
+            name: "status"
+            widget: "select"
+            options:
+              - { label: "Đang thực hiện (In Progress)", value: "in-progress" }
+              - { label: "Đã hoàn thành (Completed)", value: "completed" }
+              - { label: "Lưu trữ (Archived)", value: "archived" }
+      - label: "Thông tin Học thuật (Academic Dossier)"
+        name: "academic"
+        widget: "object"
+        fields:
+          - label: "Đóng góp cá nhân (Individual Contribution)"
+            name: "individualContribution"
+            widget: "object"
+            fields:
+              - { label: "Tiếng Việt", name: "vi", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
+          - label: "Phương pháp & Kiến trúc (Methodology)"
+            name: "methodology"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Tiếng Việt", name: "vi", widget: "text", required: false }
+              - { label: "English", name: "en", widget: "text", required: false }
+          - label: "Kết quả đạt được (Results)"
+            name: "results"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Tiếng Việt", name: "vi", widget: "text", required: false }
+              - { label: "English", name: "en", widget: "text", required: false }
+          - label: "Hạn chế & Hướng phát triển (Limitations)"
+            name: "limitations"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Tiếng Việt", name: "vi", widget: "text", required: false }
+              - { label: "English", name: "en", widget: "text", required: false }
+      - { label: "Nội dung bài viết (Markdown Body)", name: "body", widget: "markdown" }
+
+  - name: "achievements"
+    label: "Thành tích / Achievements"
+    label_singular: "Thành tích / Achievement"
+    folder: "src/content/achievements"
+    create: true
+    slug: "{{id}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Mã định danh (ID)", name: "id", widget: "string" }
+      - { label: "Công khai (Published)", name: "published", widget: "boolean", default: true }
+      - label: "Phân loại (Category)"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Giải thưởng (Awards)", value: "awards" }
+          - { label: "Học bổng (Scholarships)", value: "scholarships" }
+          - { label: "Cuộc thi học thuật (Competitions)", value: "competitions" }
+          - { label: "Chứng chỉ chuyên môn (Certificates)", value: "certificates" }
+          - { label: "Hoạt động học thuật (Academic Activities)", value: "academic-activities" }
+          - { label: "Hoạt động nghiên cứu (Research Activities)", value: "research-activities" }
+      - label: "Tiêu đề (Title)"
+        name: "title"
+        widget: "object"
+        fields:
+          - { label: "Tiếng Việt", name: "vi", widget: "string" }
+          - { label: "English", name: "en", widget: "string" }
+      - { label: "Cơ quan cấp (Issuing Organization)", name: "organization", widget: "string" }
+      - { label: "Ngày cấp (YYYY-MM)", name: "date", widget: "string" }
+      - label: "Mô tả chi tiết (Description)"
+        name: "description"
+        widget: "object"
+        fields:
+          - { label: "Tiếng Việt", name: "vi", widget: "text" }
+          - { label: "English", name: "en", widget: "text" }
+      - { label: "Đường dẫn xác thực (Verification URL)", name: "verificationUrl", widget: "string", required: false }
+      - { label: "Ảnh minh chứng (Evidence Image)", name: "evidenceImage", widget: "image", required: false }
+
+  - name: "data_settings"
+    label: "Dữ liệu Cấu hình / Settings"
+    files:
+      - label: "Hồ sơ & Liên hệ (Profile)"
+        name: "profile"
+        file: "src/data/profile.json"
+        fields:
+          - label: "Họ và tên (Name)"
+            name: "name"
+            widget: "object"
+            fields:
+              - { label: "Tiếng Việt", name: "vi", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Dòng giới thiệu ngắn (Headline)"
+            name: "headline"
+            widget: "object"
+            fields:
+              - { label: "Tiếng Việt", name: "vi", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Giới thiệu bản thân (Bio)"
+            name: "bio"
+            widget: "object"
+            fields:
+              - { label: "Tiếng Việt", name: "vi", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
+          - label: "Thông tin liên hệ (Contacts)"
+            name: "contacts"
+            widget: "object"
+            fields:
+              - { label: "Email học thuật", name: "email", widget: "string" }
+              - { label: "GitHub Profile URL", name: "github", widget: "string", required: false }
+              - { label: "LinkedIn URL", name: "linkedin", widget: "string", required: false }
+          - label: "Cấu hình CV Học thuật"
+            name: "cv"
+            widget: "object"
+            fields:
+              - { label: "Đã có sẵn file tải về (Available)", name: "available", widget: "boolean" }
+              - { label: "Tên tệp (File Name trong public/documents/)", name: "fileName", widget: "string", required: false }
+              - { label: "Năm cập nhật (Last Updated)", name: "lastUpdated", widget: "string", required: false }

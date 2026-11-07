@@ -1,0 +1,80 @@
+---
+import '../styles/global.css';
+import type { SupportedLanguage } from '../types';
+import { getAssetUrl, switchLanguage } from '../utils/paths';
+import siteSettings from '../data/site-settings.json';
+
+interface Props {
+  title?: string;
+  description?: string;
+  currentLocale: SupportedLanguage;
+  ogImage?: string;
+  article?: boolean;
+}
+
+const { 
+  title, 
+  description, 
+  currentLocale, 
+  ogImage = 'images/profile/portrait-placeholder.svg',
+  article = false
+} = Astro.props;
+
+const siteUrl = 'https://Trqc-Nam.github.io';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const pathname = Astro.url.pathname;
+
+const pageTitle = title 
+  ? `${title} | ${siteSettings.author}` 
+  : siteSettings.siteTitle[currentLocale];
+
+const pageDescription = description || siteSettings.siteDescription[currentLocale];
+const canonicalUrl = new URL(pathname, siteUrl).href;
+const viUrl = new URL(switchLanguage(pathname, 'vi'), siteUrl).href;
+const enUrl = new URL(switchLanguage(pathname, 'en'), siteUrl).href;
+const fullOgImageUrl = new URL(getAssetUrl(ogImage), siteUrl).href;
+---
+
+<!DOCTYPE html>
+<html lang={currentLocale}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Primary Meta Tags -->
+  <title>{pageTitle}</title>
+  <meta name="title" content={pageTitle} />
+  <meta name="description" content={pageDescription} />
+  <meta name="author" content={siteSettings.author} />
+  <meta name="generator" content={Astro.generator} />
+
+  <!-- Canonical & Alternate Hreflang Links -->
+  <link rel="canonical" href={canonicalUrl} />
+  <link rel="alternate" hreflang="vi" href={viUrl} />
+  <link rel="alternate" hreflang="en" href={enUrl} />
+  <link rel="alternate" hreflang="x-default" href={viUrl} />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href={getAssetUrl('favicon.svg')} />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content={article ? 'article' : 'website'} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={pageDescription} />
+  <meta property="og:image" content={fullOgImageUrl} />
+  <meta property="og:locale" content={currentLocale === 'vi' ? 'vi_VN' : 'en_US'} />
+
+  <!-- Twitter / X -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={canonicalUrl} />
+  <meta property="twitter:title" content={pageTitle} />
+  <meta property="twitter:description" content={pageDescription} />
+  <meta property="twitter:image" content={fullOgImageUrl} />
+
+
+</head>
+<body>
+  <slot />
+</body>
+</html>

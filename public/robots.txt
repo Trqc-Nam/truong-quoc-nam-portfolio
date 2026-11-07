@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://Trqc-Nam.github.io/truong-quoc-nam-portfolio/sitemap.xml

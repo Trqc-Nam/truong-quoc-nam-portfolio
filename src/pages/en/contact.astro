@@ -1,0 +1,210 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import SectionHeading from '../../components/common/SectionHeading.astro';
+import SocialLinks from '../../components/common/SocialLinks.astro';
+import profileData from '../../data/profile.json';
+import { getAssetUrl } from '../../utils/paths';
+import { getUi } from '../../utils/i18n';
+
+const currentLocale = 'en';
+const ui = getUi(currentLocale);
+---
+
+<PageLayout 
+  title="Contact & Academic Curriculum Vitae (CV)" 
+  description="Contact information, academic curriculum vitae, and research collaboration avenues with Truong Quoc Nam."
+  currentLocale={currentLocale}
+>
+  <div class="container section-spacing">
+    <SectionHeading 
+      title="Contact & Academic CV" 
+      subtitle="Direct avenues for scholarly correspondence, research collaborations, and engineering inquiries."
+    />
+
+    <div class="contact-grid">
+      <!-- Contact Cards -->
+      <div class="contact-info-col">
+        <div class="contact-card">
+          <h3 class="card-heading">📬 Academic Inquiries & Email</h3>
+          <p class="card-desc">
+            Feel free to email directly regarding collaborative research initiatives, algorithmic problem discussions, or academic coursework.
+          </p>
+          <a href={`mailto:${profileData.contacts.email}`} class="contact-email-link">
+            {profileData.contacts.email}
+          </a>
+        </div>
+
+        <div class="contact-card">
+          <h3 class="card-heading">🤝 Collaboration Interests</h3>
+          <p class="card-desc">
+            {profileData.contacts.collaborationInterests[currentLocale]}
+          </p>
+        </div>
+
+        <div class="contact-card">
+          <h3 class="card-heading">🌐 Online Academic Profiles</h3>
+          <div class="social-links-container">
+            <SocialLinks 
+              email={profileData.contacts.email} 
+              github={profileData.contacts.github} 
+              linkedin={profileData.contacts.linkedin} 
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- CV Download Box -->
+      <div class="cv-download-col">
+        <div class="cv-card">
+          <div class="cv-icon" aria-hidden="true">📄</div>
+          <h3 class="cv-title">Curriculum Vitae (Academic CV)</h3>
+          <p class="cv-desc">
+            A comprehensive overview of academic progress, specialized coursework, technical projects, and verified milestones.
+          </p>
+
+          <div class="cv-meta">
+            <p><strong>Format:</strong> Standard A4 PDF</p>
+            <p><strong>Last Updated:</strong> {profileData.cv.lastUpdated || '2026'}</p>
+          </div>
+
+          {profileData.cv.available ? (
+            <a 
+              href={getAssetUrl(`documents/${profileData.cv.fileName}`)} 
+              class="btn btn-primary cv-btn" 
+              download
+            >
+              📥 {ui.common.downloadCv}
+            </a>
+          ) : (
+            <div class="cv-notice-box">
+              <span class="btn btn-outline btn-disabled">
+                ⏳ {ui.common.cvUnavailable}
+              </span>
+              <p class="cv-subnote">
+                The academic PDF is currently being finalized with the latest semester course credits and official transcripts.
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</PageLayout>
+
+<style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 860px) {
+    .contact-grid {
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+
+  .contact-info-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .contact-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+  }
+
+  .card-heading {
+    font-size: 1.125rem;
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .card-desc {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: var(--space-4);
+  }
+
+  .contact-email-link {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  .social-links-container {
+    margin-top: var(--space-2);
+  }
+
+  .cv-card {
+    background-color: var(--color-bg-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .cv-icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-3);
+  }
+
+  .cv-title {
+    font-size: 1.25rem;
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .cv-desc {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-6);
+    max-width: 380px;
+    line-height: 1.6;
+  }
+
+  .cv-meta {
+    font-size: 0.8125rem;
+    color: var(--color-text-subtle);
+    margin-bottom: var(--space-6);
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .cv-btn {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .cv-notice-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .btn-disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    width: 100%;
+  }
+
+  .cv-subnote {
+    font-size: 0.75rem;
+    color: var(--color-text-subtle);
+  }
+</style>
