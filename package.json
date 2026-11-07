@@ -9,7 +9,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "tsc --noEmit"
+    "sync": "astro sync",
+    "check": "astro sync && astro check && tsc --noEmit"
   },
   "dependencies": {
     "astro": "^4.16.18",

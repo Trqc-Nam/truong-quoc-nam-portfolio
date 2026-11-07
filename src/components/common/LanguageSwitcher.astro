@@ -10,7 +10,6 @@ interface Props {
 const { currentLocale, currentPath } = Astro.props;
 const targetLocale: SupportedLanguage = currentLocale === 'vi' ? 'en' : 'vi';
 const targetUrl = switchLanguage(currentPath, targetLocale);
-const label = currentLocale === 'vi' ? 'EN' : 'VI';
 const title = currentLocale === 'vi' ? 'Switch to English' : 'Chuyển sang Tiếng Việt';
 ---
 
